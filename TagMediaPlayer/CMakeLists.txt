@@ -9,20 +9,50 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets)
-find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
+find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets Multimedia MultimediaWidgets)
+find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets Multimedia MultimediaWidgets)
+
+
+include_directories(
+    ${CMAKE_SOURCE_DIR}
+    ${CMAKE_SOURCE_DIR}/../EZFrameless/src
+    ${CMAKE_SOURCE_DIR}/../EZFrameless/qutils/src
+)
+
 
 set(PROJECT_SOURCES
         main.cpp
         TagMediaPlayer.cpp
         TagMediaPlayer.h
         TagMediaPlayer.ui
+        PlayerWidget.h
+        PlayerWidget.cpp
+        PlayerWidget.ui
+        SignalMacros.h
+        CustomVideoWidget.h
+        CustomVideoWidget.cpp
+        TitleBar.h
+        TitleBar.cpp
+        TitleBar.ui
+        CusVideoWidget.h
+        CusVideoWidget.cpp
+)
+
+set(OTHER_SOURCES
+    ${CMAKE_SOURCE_DIR}/../EZFrameless/src/EZFrameless.h
+    ${CMAKE_SOURCE_DIR}/../EZFrameless/src/EZFrameless.cpp
+    ${CMAKE_SOURCE_DIR}/../EZFrameless/src/EZTitleBarBase.h
+    ${CMAKE_SOURCE_DIR}/../EZFrameless/qutils/src/FontManager.h
+    ${CMAKE_SOURCE_DIR}/../EZFrameless/qutils/src/FontManager.cpp
+    ${CMAKE_SOURCE_DIR}/../EZFrameless/qutils/src/QEventForwarder.h
+    ${CMAKE_SOURCE_DIR}/../EZFrameless/qutils/src/QEventForwarder.cpp
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(TagMediaPlayer
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES}
+        ${OTHER_SOURCES}
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET TagMediaPlayer APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
@@ -38,11 +68,12 @@ else()
     else()
         add_executable(TagMediaPlayer
             ${PROJECT_SOURCES}
+            ${OTHER_SOURCES}
         )
     endif()
 endif()
 
-target_link_libraries(TagMediaPlayer PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
+target_link_libraries(TagMediaPlayer PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::Multimedia Qt${QT_VERSION_MAJOR}::MultimediaWidgets dwmapi user32)
 
 set_target_properties(TagMediaPlayer PROPERTIES
     MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com

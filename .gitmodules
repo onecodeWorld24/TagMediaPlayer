@@ -1,0 +1,3 @@
+[submodule "EZFrameless"]
+	path = EZFrameless
+	url = git@github.com:onecodeWorld24/EZFrameless.git
