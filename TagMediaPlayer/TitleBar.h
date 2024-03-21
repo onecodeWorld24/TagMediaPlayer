@@ -18,6 +18,12 @@ public:
 
     virtual bool isMovableArea(const QPoint &pt) override;
 
+    virtual void onMaximized() override;
+    virtual void onNormaled() override;
+
+protected:
+    void initTitlebar();
+
 private:
     Ui::TitleBar *ui;
 };

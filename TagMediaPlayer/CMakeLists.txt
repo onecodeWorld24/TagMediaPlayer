@@ -15,8 +15,8 @@ find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets Multimedia Multim
 
 include_directories(
     ${CMAKE_SOURCE_DIR}
-    ${CMAKE_SOURCE_DIR}/../EZFrameless/src
-    ${CMAKE_SOURCE_DIR}/../EZFrameless/qutils/src
+    ${CMAKE_SOURCE_DIR}/../3rdparty/EZFrameless
+    ${CMAKE_SOURCE_DIR}/../3rdparty/qutils
 )
 
 
@@ -34,18 +34,18 @@ set(PROJECT_SOURCES
         TitleBar.h
         TitleBar.cpp
         TitleBar.ui
-        CusVideoWidget.h
-        CusVideoWidget.cpp
+        res.qrc
+        GenericMacros.h
 )
 
 set(OTHER_SOURCES
-    ${CMAKE_SOURCE_DIR}/../EZFrameless/src/EZFrameless.h
-    ${CMAKE_SOURCE_DIR}/../EZFrameless/src/EZFrameless.cpp
-    ${CMAKE_SOURCE_DIR}/../EZFrameless/src/EZTitleBarBase.h
-    ${CMAKE_SOURCE_DIR}/../EZFrameless/qutils/src/FontManager.h
-    ${CMAKE_SOURCE_DIR}/../EZFrameless/qutils/src/FontManager.cpp
-    ${CMAKE_SOURCE_DIR}/../EZFrameless/qutils/src/QEventForwarder.h
-    ${CMAKE_SOURCE_DIR}/../EZFrameless/qutils/src/QEventForwarder.cpp
+    ${CMAKE_SOURCE_DIR}/../3rdparty/EZFrameless/EZFrameless.h
+    ${CMAKE_SOURCE_DIR}/../3rdparty/EZFrameless/EZFrameless.cpp
+    ${CMAKE_SOURCE_DIR}/../3rdparty/EZFrameless/EZTitleBarBase.h
+    ${CMAKE_SOURCE_DIR}/../3rdparty/qutils/FontManager.h
+    ${CMAKE_SOURCE_DIR}/../3rdparty/qutils/FontManager.cpp
+    ${CMAKE_SOURCE_DIR}/../3rdparty/qutils/QEventForwarder.h
+    ${CMAKE_SOURCE_DIR}/../3rdparty/qutils/QEventForwarder.cpp
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

@@ -12,7 +12,6 @@ PlayerWidget::PlayerWidget(QWidget *parent)
     , m_player(new QMediaPlayer(this))
 {
     ui->setupUi(this);
-    //    setWindowFlags(windowFlags() | Qt::FramelessWindowHint | Qt::Widget);
 
     initUI();
     initSignals();

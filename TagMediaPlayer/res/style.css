@@ -1,0 +1,22 @@
+QLabel {
+    background-color: transparent;
+    color: #cccccc;
+}
+
+QPushButton {
+    background-color: transparent;
+    color: #cccccc;
+    border: none;
+}
+
+QPushButton:hover {
+    background-color: #565656;
+}
+
+QPushButton#btnClose:hover {
+    background-color: #e81023;
+}
+
+#titlebar {
+    background-color: #323233;
+}

@@ -3,12 +3,9 @@
 
 #include <QVideoWidget>
 
-class CustomVideoWidget : public QVideoWidget
-{
+class CustomVideoWidget : public QVideoWidget {
 public:
-    CustomVideoWidget(QWidget *parent = nullptr);
-
-    bool nativeEvent(const QByteArray &eventType, void *message, long *result) override;
+  CustomVideoWidget(QWidget *parent = nullptr);
 };
 
 #endif // CUSTOMVIDEOWIDGET_H

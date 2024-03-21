@@ -2,16 +2,10 @@
 #include "./ui_TagMediaPlayer.h"
 
 TagMediaPlayer::TagMediaPlayer(QWidget *parent)
-    : EZFrameless(parent)
-    , ui(new Ui::TagMediaPlayer)
-{
-    ui->setupUi(this);
+    : EZFrameless(parent), ui(new Ui::TagMediaPlayer) {
+  ui->setupUi(this);
 
-    setTitlebarWidget(ui->titlebar);
-    //    ui->playerWidget->installEventFilter(this);
+  setTitlebarWidget(ui->titlebar);
 }
 
-TagMediaPlayer::~TagMediaPlayer()
-{
-    delete ui;
-}
+TagMediaPlayer::~TagMediaPlayer() { delete ui; }
