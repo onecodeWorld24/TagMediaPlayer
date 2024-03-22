@@ -13,7 +13,10 @@
   <property name="windowTitle">
    <string>TagMediaPlayer</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout">
+  <layout class="QVBoxLayout" name="verticalLayout" stretch="0,10">
+   <property name="spacing">
+    <number>1</number>
+   </property>
    <property name="leftMargin">
     <number>0</number>
    </property>
@@ -23,27 +26,33 @@
    <property name="rightMargin">
     <number>0</number>
    </property>
+   <property name="bottomMargin">
+    <number>3</number>
+   </property>
    <item>
-    <widget class="TitleBar" name="titlebar" native="true"/>
+    <widget class="TitleBar" name="titlebar" native="true">
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>34</height>
+      </size>
+     </property>
+    </widget>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="2,10">
-     <property name="topMargin">
-      <number>0</number>
+    <widget class="QSplitter" name="splitter">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
      </property>
-     <item>
-      <widget class="QTabWidget" name="playerTabWidget">
-       <widget class="QWidget" name="tab">
-        <attribute name="title">
-         <string>播放列表</string>
-        </attribute>
-       </widget>
+     <widget class="QTabWidget" name="playerTabWidget">
+      <widget class="QWidget" name="tab">
+       <attribute name="title">
+        <string>播放列表</string>
+       </attribute>
       </widget>
-     </item>
-     <item>
-      <widget class="PlayerWidget" name="playerWidget" native="true"/>
-     </item>
-    </layout>
+     </widget>
+     <widget class="PlayerWidget" name="playerWidget" native="true"/>
+    </widget>
    </item>
   </layout>
  </widget>

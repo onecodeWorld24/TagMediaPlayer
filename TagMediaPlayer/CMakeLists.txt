@@ -36,6 +36,8 @@ set(PROJECT_SOURCES
         TitleBar.ui
         res.qrc
         GenericMacros.h
+        windowhelper.h
+        windowhelper.cpp
 )
 
 set(OTHER_SOURCES

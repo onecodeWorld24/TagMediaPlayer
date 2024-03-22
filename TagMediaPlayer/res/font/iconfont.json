@@ -6,6 +6,20 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "5650936",
+      "name": "文件夹打开",
+      "font_class": "wenjianjiadakai",
+      "unicode": "e63f",
+      "unicode_decimal": 58943
+    },
+    {
+      "icon_id": "15644314",
+      "name": "打开文件夹",
+      "font_class": "dakaiwenjianjia",
+      "unicode": "e6fd",
+      "unicode_decimal": 59133
+    },
+    {
       "icon_id": "3117064",
       "name": "最小化",
       "font_class": "zuixiaohua",

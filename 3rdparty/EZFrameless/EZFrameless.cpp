@@ -53,10 +53,14 @@ void EZFrameless::setTitlebarWidget(EZTitleBarBase *widget)
         d->m_titlebar = widget;
 }
 
+#if 0
 bool EZFrameless::nativeEvent(const QByteArray &eventType, void *message, long *result)
 {
     Q_D(EZFrameless);
     MSG *msg = reinterpret_cast<MSG *>(message);
+    // qDebug() << __FUNCTION__ << msg->message;
+    // if (msg->message == WM_SETCURSOR)
+    //     qDebug() << "WM_SETCURSOR";
     switch (msg->message) {
     // To manage the layout and size of the non-client area of a window (i.e., the window's borders, title bar, etc.).
     case WM_NCCALCSIZE: {
@@ -64,8 +68,8 @@ bool EZFrameless::nativeEvent(const QByteArray &eventType, void *message, long *
                                                      : &(reinterpret_cast<LPNCCALCSIZE_PARAMS>(msg->lParam))->rgrc[0];
         d->m_widgetRect = QRect(0, 0, clientRect->right - clientRect->left, clientRect->bottom - clientRect->top);
         // To resolve the issue of abnormal refresh of the right border when horizontally stretching the window.
-        if (clientRect->top != 0)
-            clientRect->top -= 1;
+        // if (clientRect->top != 0)
+        //     clientRect->top -= 1;
 
         if (::IsZoomed(msg->hwnd)) {
             // To solve the issue where the actual size of the window exceeds the screen size after maximizing.
@@ -76,13 +80,14 @@ bool EZFrameless::nativeEvent(const QByteArray &eventType, void *message, long *
             clientRect->bottom -= borderOutside;
         }
 
-        d->m_titlebar->move(0, 1);
-        d->m_titlebar->setFixedWidth(clientRect->right - clientRect->left);
+        // d->m_titlebar->move(0, 1);
+        // d->m_titlebar->setFixedWidth(clientRect->right - clientRect->left);
 
         *result = WVR_REDRAW;
         return true;
     } break;
     case WM_NCHITTEST: {
+        qDebug() << __FUNCTION__;
         *result = 0;
         long x = GET_X_LPARAM(msg->lParam);
         long y = GET_Y_LPARAM(msg->lParam);
@@ -91,7 +96,7 @@ bool EZFrameless::nativeEvent(const QByteArray &eventType, void *message, long *
         ::ScreenToClient(msg->hwnd, &nativeLocalPos);
         QPoint pt(nativeLocalPos.x, nativeLocalPos.y);
 
-        const int borderWidth = 5;
+        const int borderWidth = 10;
 
         if (d->m_bResizeable) {
             bool bResizeWidth = minimumWidth() != maximumWidth();
@@ -102,8 +107,10 @@ bool EZFrameless::nativeEvent(const QByteArray &eventType, void *message, long *
                 if (pt.x() >= d->m_widgetRect.left() && pt.x() < d->m_widgetRect.left() + borderWidth)
                     *result = HTLEFT;
                 // right border
-                if (pt.x() < d->m_widgetRect.right() && pt.x() >= d->m_widgetRect.right() - borderWidth)
+                if (pt.x() < d->m_widgetRect.right() && pt.x() >= d->m_widgetRect.right() - borderWidth) {
                     *result = HTRIGHT;
+                    qDebug() << "HTRIGHT";
+                }
             }
             if (bResizeHeight) {
                 // top border
@@ -149,6 +156,7 @@ bool EZFrameless::nativeEvent(const QByteArray &eventType, void *message, long *
     }
     return QWidget::nativeEvent(eventType, message, result);
 }
+#endif
 
 void EZFrameless::changeEvent(QEvent *event)
 {

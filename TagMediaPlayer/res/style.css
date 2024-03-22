@@ -1,3 +1,8 @@
+QWidget {
+    background-color: #1e1e1e;
+    border: none;
+}
+
 QLabel {
     background-color: transparent;
     color: #cccccc;
@@ -17,6 +22,37 @@ QPushButton#btnClose:hover {
     background-color: #e81023;
 }
 
+
 #titlebar {
     background-color: #323233;
+}
+
+QTabWidget::pane {
+    border: none;
+    background-color: transparent;
+}
+
+QTabBar::tab {
+    background-color: #323233;
+    color: #cccccc;
+    border: none;
+    padding: 5px;
+}
+
+QTabBar::tab:selected,
+QTabBar::tan:hover {
+    background-color: #565656;
+    color: white;
+}
+
+QSplitter {
+    background-color: transparent;
+}
+
+QSplitter::handle {
+    background-color: #424242;
+}
+
+QSplitter::handle:vertical {
+    height: 1px;
 }

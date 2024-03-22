@@ -18,7 +18,7 @@ public:
     void setTitlebarWidget(EZTitleBarBase *widget);
 
 protected:
-    bool nativeEvent(const QByteArray &eventType, void *message, long *result) override;
+    // bool nativeEvent(const QByteArray &eventType, void *message, long *result) override;
 
     void changeEvent(QEvent *event) override;
 
