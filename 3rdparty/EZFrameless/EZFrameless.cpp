@@ -161,3 +161,9 @@ void EZFrameless::changeEvent(QEvent *event)
     }
     QWidget::changeEvent(event);
 }
+
+void EZFrameless::addUnblockedWidget(QWidget *widget)
+{
+    Q_D(EZFrameless);
+    d->m_eventFilter->addUnblockedWidget(widget);
+}

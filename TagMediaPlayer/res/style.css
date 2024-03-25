@@ -47,6 +47,7 @@ QTabBar::tan:hover {
 
 QSplitter {
     background-color: transparent;
+    border: none;
 }
 
 QSplitter::handle {
@@ -55,4 +56,8 @@ QSplitter::handle {
 
 QSplitter::handle:vertical {
     height: 1px;
+}
+
+QVideoWidget {
+    border: none;
 }

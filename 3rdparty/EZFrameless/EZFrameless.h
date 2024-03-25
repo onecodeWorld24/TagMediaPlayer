@@ -22,6 +22,8 @@ public:
 
     void changeEvent(QEvent *event) override;
 
+    void addUnblockedWidget(QWidget *widget);
+
 private:
     EZFramelessPrivate *d_ptr;
     Q_DECLARE_PRIVATE(EZFrameless)

@@ -11,11 +11,8 @@ TagMediaPlayer::TagMediaPlayer(QWidget *parent)
     setAttribute(Qt::WA_StyledBackground);
 
     setTitlebarWidget(ui->titlebar);
-    // WindowHelper::instance()->setup(this);
 
-    // FrameEventFilter *eventFilter = new FrameEventFilter();
-    // eventFilter->setMainWindow(this);
-    // qApp->installNativeEventFilter(eventFilter);
+    addUnblockedWidget(ui->splitter->handle(1));
 }
 
 TagMediaPlayer::~TagMediaPlayer()
