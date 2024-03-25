@@ -43,6 +43,8 @@ set(PROJECT_SOURCES
 set(OTHER_SOURCES
     ${CMAKE_SOURCE_DIR}/../3rdparty/EZFrameless/EZFrameless.h
     ${CMAKE_SOURCE_DIR}/../3rdparty/EZFrameless/EZFrameless.cpp
+    ${CMAKE_SOURCE_DIR}/../3rdparty/EZFrameless/FrameEventFilter.h
+    ${CMAKE_SOURCE_DIR}/../3rdparty/EZFrameless/FrameEventFilter.cpp
     ${CMAKE_SOURCE_DIR}/../3rdparty/EZFrameless/EZTitleBarBase.h
     ${CMAKE_SOURCE_DIR}/../3rdparty/qutils/FontManager.h
     ${CMAKE_SOURCE_DIR}/../3rdparty/qutils/FontManager.cpp

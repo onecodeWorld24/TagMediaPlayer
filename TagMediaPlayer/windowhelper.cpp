@@ -29,6 +29,62 @@
 
 static WNDPROC g_qtWindowProc = nullptr;
 
+static inline constexpr bool isNonClientMessage(const UINT message)
+{
+    if (((message >= WM_NCCREATE) && (message <= WM_NCACTIVATE))
+        || ((message >= WM_NCMOUSEMOVE) && (message <= WM_NCMBUTTONDBLCLK))
+        || ((message >= WM_NCXBUTTONDOWN) && (message <= WM_NCXBUTTONDBLCLK))
+#if (WINVER >= _WIN32_WINNT_WIN8)
+        || ((message >= WM_NCPOINTERUPDATE) && (message <= WM_NCPOINTERUP))
+#endif
+        || ((message == WM_NCMOUSEHOVER) || (message == WM_NCMOUSELEAVE))) {
+        return true;
+    } else {
+        return false;
+    }
+}
+static MSG createMessageBlock(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
+{
+    MSG msg;
+    msg.hwnd = hWnd;       // re-create MSG structure
+    msg.message = message; // time and pt fields ignored
+    msg.wParam = wParam;
+    msg.lParam = lParam;
+
+    const DWORD dwScreenPos = ::GetMessagePos();
+    msg.pt.x = GET_X_LPARAM(dwScreenPos);
+    msg.pt.y = GET_Y_LPARAM(dwScreenPos);
+    if (!isNonClientMessage(message)) {
+        ::ScreenToClient(hWnd, &msg.pt);
+    }
+    return msg;
+}
+static inline constexpr bool isInputMessage(UINT m)
+{
+    switch (m) {
+    case WM_IME_STARTCOMPOSITION:
+    case WM_IME_ENDCOMPOSITION:
+    case WM_IME_COMPOSITION:
+    case WM_INPUT:
+    // case WM_TOUCH:
+    case WM_MOUSEHOVER:
+    case WM_MOUSELEAVE:
+    case WM_NCMOUSEHOVER:
+    case WM_NCMOUSELEAVE:
+    case WM_SIZING:
+    case WM_MOVING:
+    case WM_SYSCOMMAND:
+    case WM_COMMAND:
+    // case WM_DWMNCRENDERINGCHANGED:
+    case WM_PAINT:
+        return true;
+    default:
+        break;
+    }
+    return (m >= WM_MOUSEFIRST && m <= WM_MOUSELAST) || (m >= WM_NCMOUSEMOVE && m <= WM_NCXBUTTONDBLCLK)
+           || (m >= WM_KEYFIRST && m <= WM_KEYLAST);
+}
+
 bool customWindowHandler(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam, LRESULT *result)
 {
     switch (message) {
@@ -57,7 +113,7 @@ bool customWindowHandler(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam, 
         int  frameSize = 10 /*getResizeBorderThickness(hWnd)*/;
         bool isTop = (nativeLocalPos.y < frameSize);
 
-        if (/*isSystemBorderEnabled()*/ false) {
+        if (/*isSystemBorderEnabled()*/ true) {
             // This will handle the left, right and bottom parts of the frame
             // because we didn't change them.
             LRESULT originalHitTestResult = ::DefWindowProcW(hWnd, WM_NCHITTEST, 0, lParam);
@@ -204,6 +260,26 @@ extern "C" LRESULT QT_WIN_CALLBACK QWKHookedWndProc(HWND hWnd, UINT message, WPA
     // need to forward it right away and process it in our native event filter.
     if (message == WM_NCCALCSIZE) {
         return ::CallWindowProcW(g_qtWindowProc, hWnd, message, wParam, lParam);
+    }
+    // *result = FALSE;
+    switch (message) {
+    case WM_DESTROY:
+    case WM_CLOSE:
+    case WM_NCDESTROY:
+        // Undocumented messages:
+        // case WM_UAHDESTROYWINDOW:
+        // case WM_UNREGISTER_WINDOW_SERVICES:
+        {
+            MSG msg = createMessageBlock(hWnd, message, wParam, lParam);
+            if (!isInputMessage(msg.message) /* && filterNativeEvent(&msg, result)*/)
+                return false;
+            // auto platformWindow = window->handle();
+            // if (platformWindow && filterNativeEvent(platformWindow->window(), &msg, result))
+            //     return false;
+        }
+        return false;
+    default:
+        break;
     }
 
     // Try hooked procedure and save result

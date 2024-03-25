@@ -1,3 +1,4 @@
+#include "FrameEventFilter.h"
 #include "GenericMacros.h"
 #include "TagMediaPlayer.h"
 
@@ -14,6 +15,8 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
     QGuiApplication::setAttribute(Qt::AA_DontCreateNativeWidgetSiblings);
 
+    // FrameEventFilter *eventFilter = new FrameEventFilter();
+
     if (!loadStyles(a, "://res/style.css"))
         return 0;
 
@@ -21,6 +24,8 @@ int main(int argc, char *argv[])
         return 0;
 
     TagMediaPlayer w;
+    // eventFilter->setMainWindow(&w);
+    // a.installNativeEventFilter(eventFilter);
     w.show();
     return a.exec();
 }

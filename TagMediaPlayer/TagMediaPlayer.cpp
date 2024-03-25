@@ -1,5 +1,6 @@
 #include "TagMediaPlayer.h"
 #include "./ui_TagMediaPlayer.h"
+#include "FrameEventFilter.h"
 #include "windowhelper.h"
 
 TagMediaPlayer::TagMediaPlayer(QWidget *parent)
@@ -10,7 +11,11 @@ TagMediaPlayer::TagMediaPlayer(QWidget *parent)
     setAttribute(Qt::WA_StyledBackground);
 
     setTitlebarWidget(ui->titlebar);
-    WindowHelper::instance()->setup(this);
+    // WindowHelper::instance()->setup(this);
+
+    // FrameEventFilter *eventFilter = new FrameEventFilter();
+    // eventFilter->setMainWindow(this);
+    // qApp->installNativeEventFilter(eventFilter);
 }
 
 TagMediaPlayer::~TagMediaPlayer()
