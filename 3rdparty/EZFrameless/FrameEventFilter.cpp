@@ -35,7 +35,6 @@ bool FrameEventFilter::isUnblockedMessageWindow(WId wid)
 {
     if (!m_bInited)
         return true;
-    QReadLocker locker(&m_mutex);
     foreach (WId widget, m_unblockedWid) {
         if (widget == wid)
             return true;
